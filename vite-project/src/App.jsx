@@ -1,34 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React, { useState, useEffect, useMemo, useCallback, use } from 'react';
 import './App.css'
+import AlumnForm from './components/AlumnForm';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [alumnos, setAlumnos] = useState([]);
+  const [mostrarForm, setMostrarForm] = useState(false);
+  const [alumnoEditar, setAlumnoEditar] = useState(null);
+
+  console.log('Render de App');
+
+  const obtenerSiguienteLU = () => {
+    if (alumnos.length === 0) return 1;
+    return Math.max(...alumnos.map((a) => a.libreta)) + 1;
+  };
+
+  const agregarAlumno = useCallback((alumno) => {
+    const nuevoAlumno = { ...alumno, libreta: obtenerSiguienteLU() };
+    setAlumnos((prev) => [...prev, nuevoAlumno]);
+    setMostrarForm(false);
+  },[alumnos]);
+
+  const eliminarAlumno = useCallback((libreta) => {
+    setAlumnos((prev) => prev.filter((a) => a.libreta !== libreta));
+    if (alumnoEditar?.libreta === libreta) setAlumnoEditar(null);
+  }, [alumnoEditar]);
+
+  const actualizarAlumno = useCallback((libreta, datosActualizados) => {
+    setAlumnos((prev) =>
+      prev.map((a) => (a.libreta === libreta ? { ...a, ...datosActualizados } : a))
+    );
+    setAlumnoEditar(null);
+    setMostrarForm(false);
+  }, []);
+  
+  const manejarEditar = useCallback((alumno) => {
+    setAlumnoEditar(alumno);
+    setMostrarForm(true);
+  }, []);
+
+  const cancelarEdicion = useCallback(() => {
+    setAlumnoEditar(null);
+    setMostrarForm(false);
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className='app-container'>
+      <button
+          className="add-product-btn"
+          onClick={() => {
+            setMostrarForm(true);
+            setAlumnoEditar(null);
+          }}
+        >
+          Agregar Producto
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+        {mostrarForm && (
+        <AlumnForm
+          agregarAlumno={agregarAlumno}
+          actualizarAlumno={actualizarAlumno}
+          alumnoEditar={alumnoEditar}
+          cancelarEdicion={cancelarEdicion}
+        />
+      )}
+    </div>
   )
 }
 

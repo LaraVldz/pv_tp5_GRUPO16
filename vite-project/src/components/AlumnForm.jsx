@@ -27,16 +27,16 @@ const AlumnForm = ({ agregarAlumno, actualizarAlumno, alumnoEditar, cancelarEdic
     }
   }, [alumnoEditar]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const nuevoAlumno = { nombre, apellido, curso, email, domicilio, telefono };
+ const handleSubmit = (e) => {
+  e.preventDefault();
+  const nuevoAlumno = { nombre, apellido, curso, email, domicilio, telefono };
 
-    if (alumnoEditar) {
-      actualizarAlumno(alumnoEditar.libreta, nuevoAlumno);
-    } else {
-      agregarAlumno(nuevoAlumno);
-    }
-  };
+  if (alumnoEditar) {
+    actualizarAlumno(alumnoEditar.libreta, nuevoAlumno);
+  } else {
+    agregarAlumno(nuevoAlumno);
+  }
+};
 
   return (
     <form className="product-form" onSubmit={handleSubmit}>

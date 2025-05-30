@@ -5,6 +5,8 @@ import AlumnForm from './components/AlumnForm';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import AlumnList from './components/AlumnList';
+import AcercaDe from './components/AcercaDe';
+
 
 
 function FormularioWrapper({ agregarAlumno, actualizarAlumno, alumnos }) {
@@ -107,6 +109,7 @@ function App() {
             />
           }
         />
+        <Route path="/acerca" element={<AcercaDe />} />
       </Routes>
     </div>
   );

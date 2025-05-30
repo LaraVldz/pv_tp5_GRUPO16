@@ -1,31 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import { Routes, Route, Link, useNavigate, useParams } from 'react-router-dom';
 import './App.css';
-
 import AlumnForm from './components/AlumnForm';
+import NavBar from './components/NavBar';
+import Home from './components/Home';
+import AlumnList from './components/AlumnList';
 
-function ListaAlumnos({ alumnos, manejarEditar, eliminarAlumno }) {
-  return (
-    <div>
-      <h2>Lista de Alumnos</h2>
-      <Link to="/agregar">
-        <button>Agregar Alumno</button>
-      </Link>
-      <ul>
-        {alumnos.map((a) => (
-          <li key={a.libreta}>
-            {a.nombre} {a.apellido} - {a.curso} - {a.email}
-            <Link to={`/editar/${a.libreta}`}>
-              <button>Editar</button>
-            </Link>
-
-            <button onClick={() => eliminarAlumno(a.libreta)}>Eliminar</button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
 
 function FormularioWrapper({ agregarAlumno, actualizarAlumno, alumnos }) {
   const navigate = useNavigate();
@@ -59,6 +39,7 @@ function FormularioWrapper({ agregarAlumno, actualizarAlumno, alumnos }) {
 
 function App() {
   const [alumnos, setAlumnos] = useState([]);
+  const navigate = useNavigate();
 
   const obtenerSiguienteLU = () => {
     if (alumnos.length === 0) return 1;
@@ -88,15 +69,12 @@ function App() {
 
   return (
     <div className="app-container">
+      <NavBar /> {/* mostrar navbar siempre */}
       <Routes>
         <Route
           path="/"
           element={
-            <ListaAlumnos
-              alumnos={alumnos}
-              manejarEditar={(a) => manejarEditar(a)}
-              eliminarAlumno={eliminarAlumno}
-            />
+            <Home />
           }
         />
         <Route
@@ -106,6 +84,16 @@ function App() {
               agregarAlumno={agregarAlumno}
               actualizarAlumno={actualizarAlumno}
               alumnos={alumnos}
+            />
+          }
+        />
+        <Route
+          path="/listaalumnos"
+          element={
+            <AlumnList
+              alumnos={alumnos}
+              manejarEditar={(a) => manejarEditar(a)}
+              eliminarAlumno={eliminarAlumno}
             />
           }
         />

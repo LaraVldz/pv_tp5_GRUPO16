@@ -1,5 +1,4 @@
-#🗒️ ## Repositorio de Programación Visual 2025 - TP N°5
-
+## Repositorio de Programación Visual 2025 - TP N°5
 ## 📝 Sistema de Gestión de Alumnos
 
 ## Esta aplicación web fue desarrollada utilizando **React** y **Vite**. Permite:

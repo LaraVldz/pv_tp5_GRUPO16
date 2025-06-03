@@ -28,7 +28,7 @@ export default function AlumnList({
       {alumnos.length === 0 ? (
         <p>No hay alumnos ingresados.</p>
       ) : (
-        /* Si hay alumnos, muestro la lista */
+        /* 3) Si hay alumnos, muestro la lista */
         <ul>
           {alumnos.map(a => (
             <li key={a.libreta} className="alumno-item">

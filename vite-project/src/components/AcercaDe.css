@@ -1,0 +1,62 @@
+/*  Contenedor principal*/
+.acerca-container {                             
+  padding: 1.5rem;                              
+  max-width: 90vw;                 
+  margin: 1rem auto;                
+}
+
+/* 2) Titula principal */
+.acerca-container h2 {
+  color: #0366d6;                  
+  margin-top: 0;
+  font-size: 1.75rem;              
+}
+
+.acerca-container h3 {
+  color: #4479b6;                  
+  margin-top: 1.5rem;
+  margin-bottom: 0.2rem;
+  font-size: 1.25rem;
+}
+
+.acerca-container p {
+  color: #000000;                     
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+/* Listas de integrantes y tecnologías */
+.integrantes-lista,
+.tecnologias-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+
+.integrantes-lista li,
+.tecnologias-lista li {
+  color: #333;                     
+  margin-bottom: 0.5rem;           
+  font-size: 1rem;
+}
+
+/* enlaces de GitHub */
+.integrantes-lista a {
+  color: #439e8a;                  
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.integrantes-lista a:hover {
+  text-decoration: underline;
+}
+
+/* media Query*/
+@media (max-width: 400px) {
+  .acerca-container {
+    padding: 1rem;
+    margin: 0.5rem 1%;
+    font-size: 0.95rem;
+  }
+}

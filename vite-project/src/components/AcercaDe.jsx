@@ -1,6 +1,9 @@
+import React from "react";
+import "./AcercaDe.css";
+
 const AcercaDe = () => {
   return (
-    <div style={{ padding: '1rem' }}>
+    <div className="acerca-container">
       <h2>Acerca de esta Aplicación</h2>
       <p>
         Esta aplicación fue desarrollada Por el Grupo 16 como parte del Trabajo Práctico N°5 de Programación Visual,
@@ -8,7 +11,7 @@ const AcercaDe = () => {
       </p>
 
       <h3>Integrantes del Grupo</h3>
-      <ul>
+      <ul className="integrantes-lista">
         <li>👤 Darian Baldelomar - GitHub: <a href="https://github.com/Darian-Balde" target="_blank">Darian-Balde</a></li>
         <li>👤 Ignacio Jesus Suruguay - GitHub: <a href="https://github.com/ignacioJES" target="_blank">ignacioJES</a></li>
         <li>👤 Mauricio suilice - GitHub: <a href="https://github.com/MauricioSuilice19" target="_blank">MauricioSuilice19</a></li>
@@ -24,7 +27,7 @@ const AcercaDe = () => {
       </p>
 
       <h3>Tecnologías Utilizadas</h3>
-      <ul>
+      <ul className="tecnologias-lista">
         <li>React</li>
         <li>Vite</li>
         <li>React Router DOM</li>

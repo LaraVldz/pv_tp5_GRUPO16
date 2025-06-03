@@ -9,7 +9,7 @@ export default function AlumnList({
 }) {
   return (
     <div className="list-container">
-      {/* 1) Mensaje de éxito: siempre en la parte superior */}
+      {/* Mensaje de éxito: siempre en la parte superior */}
       {mensajeExito && (
         <div className="success-message">
           {mensajeExito}
@@ -24,11 +24,11 @@ export default function AlumnList({
         <button>Agregar Alumno</button>
       </Link>
 
-      {/* 2) Si no hay alumnos, muestro mensaje “No hay alumnos ingresados” */}
+      {/* Si no hay alumnos, muestro mensaje” */}
       {alumnos.length === 0 ? (
         <p>No hay alumnos ingresados.</p>
       ) : (
-        /* 3) Si hay alumnos, muestro la lista */
+        /* Si hay alumnos, muestro la lista */
         <ul>
           {alumnos.map(a => (
             <li key={a.libreta} className="alumno-item">

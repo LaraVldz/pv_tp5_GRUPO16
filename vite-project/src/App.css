@@ -3,12 +3,10 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #a0d8f7, #3da9fc);
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  
 }
 
-/* Contenedor principal */
+/*Contenedor principal */
 .app-container {
   background: white;
   border-radius: 12px;
@@ -120,24 +118,6 @@ input:-webkit-autofill:active {
 
 .form-buttons button {
   width: 48%;
-}
-
-/* Barra de navegacion */
-.navbar {
-  display: flex;
-  gap: 1rem;
-  background-color: #333;
-  padding: 1rem;
-}
-
-.navbar a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.navbar a:hover {
-  text-decoration: underline;
 }
 
 h1{

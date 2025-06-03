@@ -1,56 +1,67 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+  import React from 'react';
+  import { Link } from 'react-router-dom';
 
-function AlumnList({ alumnos, manejarEditar, eliminarAlumno }) {
-  const [alumnoSeleccionado, setAlumnoSeleccionado] = useState(null);
-
+export default function AlumnList({
+  alumnos,
+  eliminarAlumno,
+  mensajeExito,
+  clearMensaje
+}) {
   return (
-    <div className="app-container">
-      <h2>Lista de Alumnos</h2>
+    <div className="list-container">
+      {/* 1) Mensaje de éxito: siempre en la parte superior */}
+      {mensajeExito && (
+        <div className="success-message">
+          {mensajeExito}
+          <button className="close-message" onClick={clearMensaje}>
+            ×
+          </button>
+        </div>
+      )}
+
+    <h2>Lista de Alumnos</h2>
       <Link to="/agregar">
         <button>Agregar Alumno</button>
       </Link>
 
-      <ul>
-        {alumnos.map((a) => (
-          <li key={a.libreta} className="alumno-item">
-            <div>
-              {a.nombre} {a.apellido} - {a.curso} - {a.email}
-            </div>
-
-            <div>
-              <Link to={`/editar/${a.libreta}`}>
-                <button>Editar</button>
-              </Link>
-              <button onClick={() => eliminarAlumno(a.libreta)}>Eliminar</button>
-              <button
-                onClick={() =>
-                  setAlumnoSeleccionado(
-                    alumnoSeleccionado?.libreta === a.libreta ? null : a
-                  )
-                }
-              >
-                {alumnoSeleccionado?.libreta === a.libreta
-                  ? "Cerrar Detalle"
-                  : "Detalle Alumno"}
-              </button>
-            </div>
-
-            {alumnoSeleccionado && alumnoSeleccionado.libreta === a.libreta && (
-              <div className="alumno-detalle">
-                <p><strong>Nombre:</strong> {alumnoSeleccionado.nombre}</p>
-                <p><strong>Apellido:</strong> {alumnoSeleccionado.apellido}</p>
-                <p><strong>Curso:</strong> {alumnoSeleccionado.curso}</p>
-                <p><strong>Email:</strong> {alumnoSeleccionado.email}</p>
-                <p><strong>Domicilio:</strong> {alumnoSeleccionado.domicilio}</p>
-                <p><strong>Teléfono:</strong> {alumnoSeleccionado.telefono}</p>
+      {/* 2) Si no hay alumnos, muestro mensaje “No hay alumnos ingresados” */}
+      {alumnos.length === 0 ? (
+        <p>No hay alumnos ingresados.</p>
+      ) : (
+        /* 3) Si hay alumnos, muestro la lista */
+        <ul>
+          {alumnos.map(a => (
+            <li key={a.libreta} className="alumno-item">
+              <div className="alumno-info">
+                <strong>
+                  {a.nombre} {a.apellido}
+                </strong>{' '}
+                — LU: {a.libreta}
               </div>
-            )}
-          </li>
-        ))}
-      </ul>
+              <div className="alumno-actions">
+                <Link to={`/detalle/${a.libreta}`}>
+                  <button>Ver Detalles</button>
+                </Link>
+                <Link to={`/editar/${a.libreta}`}>
+                  <button>Editar</button>
+                </Link>
+                <button
+                  onClick={() => {
+                    const confirmar = window.confirm(
+                      `¿Seguro que querés eliminar a ${a.nombre} ${a.apellido}?`
+                    );
+                    if (confirmar) {
+                      eliminarAlumno(a.libreta);
+                    }
+                  }}
+                >
+                  Eliminar
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
-
-export default AlumnList;

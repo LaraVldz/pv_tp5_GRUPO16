@@ -147,3 +147,60 @@ h1{
 p{ 
   color: black;
 }
+
+/* Formulario de alumnos */
+.product-form {
+  width: 100%;
+}
+
+.product-form .form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.product-form .form-field label {
+  margin-bottom: 4px;
+}
+
+.product-form .form-field input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.product-form .form-field input:focus,
+.product-form .form-field input:valid {
+  background-color: #e7ecee;
+  border-color: #33aaff;
+  outline: none;
+}
+
+/* Botones dentro del formulario */
+.product-form .form-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.product-form .form-buttons button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: #333;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.product-form .form-buttons button:hover {
+  background: #555;
+}
+
+.product-form .form-field label {
+  color: #333;            /* o “black” si lo prefieres */
+  margin-bottom: 4px;     /* separa el texto del input */
+  font-weight: bold;      /* opcional: para destacarlos */
+}

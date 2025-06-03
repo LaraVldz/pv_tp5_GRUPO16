@@ -1,56 +1,67 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+// src/components/AlumnList.jsx
 
-function AlumnList({ alumnos, manejarEditar, eliminarAlumno }) {
-  const [alumnoSeleccionado, setAlumnoSeleccionado] = useState(null);
+import React from 'react';
+import { Link } from 'react-router-dom';
 
+export default function AlumnList({ alumnos, eliminarAlumno }) {
+  // Si no hay alumnos, muestro mensaje y botón para agregar
+  if (alumnos.length === 0) {
+    return (
+      <div className="list-container">
+        <h2>Lista de Alumnos</h2>
+        <p>No hay alumnos ingresados.</p>
+        <Link to="/agregar">
+          <button>Agregar Alumno</button>
+        </Link>
+      </div>
+    );
+  }
+
+  // Si hay alumnos, muestro cada ítem con sus botones
   return (
-    <div className="app-container">
+    <div className="list-container">
       <h2>Lista de Alumnos</h2>
       <Link to="/agregar">
         <button>Agregar Alumno</button>
       </Link>
 
       <ul>
-        {alumnos.map((a) => (
+        {alumnos.map(a => (
           <li key={a.libreta} className="alumno-item">
-            <div>
-              {a.nombre} {a.apellido} - {a.curso} - {a.email}
+            {/* Información básica */}
+            <div className="alumno-info">
+              <strong>{a.nombre} {a.apellido}</strong> — LU: {a.libreta}
             </div>
 
-            <div>
+            {/* Botones de acciones */}
+            <div className="alumno-actions">
+              {/* 1) Ver Detalles */}
+              <Link to={`/detalle/${a.libreta}`}>
+                <button>Ver Detalles</button>
+              </Link>
+
+              {/* 2) Editar */}
               <Link to={`/editar/${a.libreta}`}>
                 <button>Editar</button>
               </Link>
-              <button onClick={() => eliminarAlumno(a.libreta)}>Eliminar</button>
+
+              {/* 3) Eliminar con confirmación */}
               <button
-                onClick={() =>
-                  setAlumnoSeleccionado(
-                    alumnoSeleccionado?.libreta === a.libreta ? null : a
-                  )
-                }
+                onClick={() => {
+                  const confirmar = window.confirm(
+                    `¿Seguro que querés eliminar a ${a.nombre} ${a.apellido}?`
+                  );
+                  if (confirmar) {
+                    eliminarAlumno(a.libreta);
+                  }
+                }}
               >
-                {alumnoSeleccionado?.libreta === a.libreta
-                  ? "Cerrar Detalle"
-                  : "Detalle Alumno"}
+                Eliminar
               </button>
             </div>
-
-            {alumnoSeleccionado && alumnoSeleccionado.libreta === a.libreta && (
-              <div className="alumno-detalle">
-                <p><strong>Nombre:</strong> {alumnoSeleccionado.nombre}</p>
-                <p><strong>Apellido:</strong> {alumnoSeleccionado.apellido}</p>
-                <p><strong>Curso:</strong> {alumnoSeleccionado.curso}</p>
-                <p><strong>Email:</strong> {alumnoSeleccionado.email}</p>
-                <p><strong>Domicilio:</strong> {alumnoSeleccionado.domicilio}</p>
-                <p><strong>Teléfono:</strong> {alumnoSeleccionado.telefono}</p>
-              </div>
-            )}
           </li>
         ))}
       </ul>
     </div>
   );
 }
-
-export default AlumnList;

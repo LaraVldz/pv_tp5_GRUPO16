@@ -1,84 +1,85 @@
 import React, { useState, useCallback } from 'react';
-import { Routes, Route, Link, useNavigate, useParams } from 'react-router-dom';
+import { Routes, Route, useNavigate, useParams } from 'react-router-dom';
 import './App.css';
-import AlumnForm from './components/AlumnForm';
+
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import AlumnList from './components/AlumnList';
+import AlumnForm from './components/AlumnForm';
 import AcercaDe from './components/AcercaDe';
+import DetalleAlumno from './components/DetalleAlumno';
 
-
-
+// Usamos el mismo formulario para alta y edición
 function FormularioWrapper({ agregarAlumno, actualizarAlumno, alumnos }) {
   const navigate = useNavigate();
   const { libreta } = useParams();
+  const alumnoEditar = libreta
+    ? alumnos.find(a => a.libreta === Number(libreta))
+    : null;
 
-  // Buscar alumno a editar (si viene libreta)
-  const alumnoEditar = libreta ? alumnos.find((a) => a.libreta === Number(libreta)) : null;
-
-  const cancelarEdicion = () => {
-    navigate('/');
-  };
-
-  const onSubmit = (alumno) => {
+  // Esta función maneja tanto crear como editar
+  const handleSave = datos => {
     if (alumnoEditar) {
-      actualizarAlumno(alumnoEditar.libreta, alumno);
+      actualizarAlumno(alumnoEditar.libreta, datos);
     } else {
-      agregarAlumno(alumno);
+      agregarAlumno(datos);
     }
-    navigate('/');
+    navigate('/listaalumnos');
   };
 
   return (
     <AlumnForm
-      agregarAlumno={onSubmit}
-      actualizarAlumno={onSubmit}
+      onSubmit={handleSave}
       alumnoEditar={alumnoEditar}
-      cancelarEdicion={cancelarEdicion}
+      cancelarEdicion={() => navigate('/listaalumnos')}
     />
   );
 }
 
-function App() {
+export default function App() {
   const [alumnos, setAlumnos] = useState([]);
-  const navigate = useNavigate();
+  // Genera el próximo número de libreta
+  const generarNuevaLU = prev =>
+    prev.length === 0 ? 1 : Math.max(...prev.map(a => a.libreta)) + 1;
 
-  const obtenerSiguienteLU = () => {
-    if (alumnos.length === 0) return 1;
-    return Math.max(...alumnos.map((a) => a.libreta)) + 1;
-  };
-
-  const agregarAlumno = useCallback((alumno) => {
-    const nuevoAlumno = { ...alumno, libreta: obtenerSiguienteLU() };
-    setAlumnos((prev) => [...prev, nuevoAlumno]);
-  }, [alumnos]);
-
-  const eliminarAlumno = useCallback((libreta) => {
-    setAlumnos((prev) => prev.filter((a) => a.libreta !== libreta));
+  // Función para agregar nuevo alumno
+  const agregarAlumno = useCallback(alumno => {
+    setAlumnos(prev => [
+      ...prev,
+      { ...alumno, libreta: alumno.libreta || generarNuevaLU(prev) }
+    ]);
   }, []);
 
-  const actualizarAlumno = useCallback((libreta, datosActualizados) => {
-    setAlumnos((prev) =>
-      prev.map((a) => (a.libreta === libreta ? { ...a, ...datosActualizados } : a))
+  // Función para editar alumno existente
+  const actualizarAlumno = useCallback((libreta, datos) => {
+    setAlumnos(prev =>
+      prev.map(a =>
+        a.libreta === libreta ? { ...a, ...datos, libreta } : a
+      )
     );
   }, []);
 
-  const manejarEditar = (alumno) => {
-    navigate(`/editar/${alumno.libreta}`);
-    // Navega a ruta editar con la libreta en URL
-    // Esto se hace en ListaAlumnos con <Link>
-  };
+  // Función para eliminar alumno
+  const eliminarAlumno = useCallback(libreta => {
+    setAlumnos(prev => prev.filter(a => a.libreta !== libreta));
+  }, []);
 
   return (
     <div className="app-container">
-      <NavBar /> {/* mostrar navbar siempre */}
+      <NavBar />
       <Routes>
+        <Route path="/" element={<Home />} />
+
         <Route
-          path="/"
+          path="/listaalumnos"
           element={
-            <Home />
+            <AlumnList
+              alumnos={alumnos}
+              eliminarAlumno={eliminarAlumno}
+            />
           }
         />
+
         <Route
           path="/agregar"
           element={
@@ -89,16 +90,7 @@ function App() {
             />
           }
         />
-        <Route
-          path="/listaalumnos"
-          element={
-            <AlumnList
-              alumnos={alumnos}
-              manejarEditar={(a) => manejarEditar(a)}
-              eliminarAlumno={eliminarAlumno}
-            />
-          }
-        />
+
         <Route
           path="/editar/:libreta"
           element={
@@ -109,10 +101,16 @@ function App() {
             />
           }
         />
+        <Route path="/detalle/:libreta"
+               element={
+               <DetalleAlumno alumnos={alumnos} />}
+        />
+
         <Route path="/acerca" element={<AcercaDe />} />
       </Routes>
     </div>
   );
+
+
 }
 
-export default App;

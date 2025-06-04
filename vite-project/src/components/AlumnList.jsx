@@ -19,7 +19,7 @@ export default function AlumnList({
         </div>
       )}
 
-    <h2>Lista de Alumnos</h2>
+      <h2>Lista de Alumnos</h2>
       <Link to="/agregar">
         <button>Agregar Alumno</button>
       </Link>

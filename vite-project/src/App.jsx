@@ -95,7 +95,6 @@ export default function App() {
             path="/listaalumnos"
             element={
               <div className="main-container">
-                <h2>Lista de Alumnos</h2>
                 <AlumnList
                   alumnos={alumnos}
                   eliminarAlumno={eliminarAlumno}

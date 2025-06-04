@@ -26,7 +26,7 @@ function Home() {
         “La educación es el arma más poderosa para cambiar el mundo.” – Nelson Mandela
       </blockquote>
 
-      <h2 className="home-subtitle">📚 En esta aplicación se puede:</h2>
+      <h2 className="home-subtitle">📚 En esta aplicación podrás:</h2>
 
       <ul className="features-list">
         <li>📌 Crear y registrar nuevos alumnos</li>

@@ -1,4 +1,3 @@
-//App
 import React, { useState, useCallback, useEffect } from "react";
 import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import "./App.css";
@@ -10,6 +9,7 @@ import AlumnForm from "./components/AlumnForm";
 import DetalleAlumno from "./components/DetalleAlumno";
 import AcercaDe from "./components/AcercaDe";
 
+// Wrapping del formulario con estilos centrados
 function FormularioWrapper({ agregarAlumno, actualizarAlumno, alumnos, setMensajeExito }) {
   const navigate = useNavigate();
   const { libreta } = useParams();
@@ -19,14 +19,12 @@ function FormularioWrapper({ agregarAlumno, actualizarAlumno, alumnos, setMensaj
 
   const handleSave = (datos) => {
     if (alumnoEditar) {
-      // Edición
       actualizarAlumno(alumnoEditar.libreta, datos);
       setMensajeExito("Alumno actualizado con éxito");
       navigate("/listaalumnos");
       return;
     }
 
-    // Alta: validar que la LU no exista
     const nuevaLU = Number(datos.libreta);
     if (alumnos.some((a) => a.libreta === nuevaLU)) {
       window.alert(`Ya existe un alumno con LU ${nuevaLU}. Debe elegir otro número.`);
@@ -39,11 +37,14 @@ function FormularioWrapper({ agregarAlumno, actualizarAlumno, alumnos, setMensaj
   };
 
   return (
-    <AlumnForm
-      onSubmit={handleSave}
-      alumnoEditar={alumnoEditar}
-      cancelarEdicion={() => navigate("/listaalumnos")}
-    />
+    <div className="main-container">
+      <h2>{alumnoEditar ? "Editar Alumno" : "Agregar Alumno"}</h2>
+      <AlumnForm
+        onSubmit={handleSave}
+        alumnoEditar={alumnoEditar}
+        cancelarEdicion={() => navigate("/listaalumnos")}
+      />
+    </div>
   );
 }
 
@@ -51,7 +52,6 @@ export default function App() {
   const [alumnos, setAlumnos] = useState([]);
   const [mensajeExito, setMensajeExito] = useState("");
 
-  // Limpiar mensaje de éxito después de 3 segundos
   useEffect(() => {
     if (mensajeExito) {
       const timer = setTimeout(() => setMensajeExito(""), 3000);
@@ -59,11 +59,9 @@ export default function App() {
     }
   }, [mensajeExito]);
 
-  // Generar la próxima libreta (LU)
   const generarNuevaLU = (prev) =>
     prev.length === 0 ? 1 : Math.max(...prev.map((a) => a.libreta)) + 1;
 
-  // Agregar un nuevo alumno
   const agregarAlumno = useCallback(
     (alumno) => {
       setAlumnos((prev) => [
@@ -74,7 +72,6 @@ export default function App() {
     []
   );
 
-  // Actualizar un alumno existente
   const actualizarAlumno = useCallback((libreta, datos) => {
     setAlumnos((prev) =>
       prev.map((a) =>
@@ -83,17 +80,13 @@ export default function App() {
     );
   }, []);
 
-  // Eliminar un alumno por su LU
   const eliminarAlumno = useCallback((libreta) => {
     setAlumnos((prev) => prev.filter((a) => a.libreta !== libreta));
   }, []);
 
   return (
     <>
-      {/* 1) NavBar fuera de .app-container para que ocupe todo el ancho */}
       <NavBar />
-
-      {/* 2) El resto de la app dentro de .app-container */}
       <div className="app-container">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -101,12 +94,15 @@ export default function App() {
           <Route
             path="/listaalumnos"
             element={
-              <AlumnList
-                alumnos={alumnos}
-                eliminarAlumno={eliminarAlumno}
-                mensajeExito={mensajeExito}
-                clearMensaje={() => setMensajeExito("")}
-              />
+              <div className="main-container">
+                <h2>Lista de Alumnos</h2>
+                <AlumnList
+                  alumnos={alumnos}
+                  eliminarAlumno={eliminarAlumno}
+                  mensajeExito={mensajeExito}
+                  clearMensaje={() => setMensajeExito("")}
+                />
+              </div>
             }
           />
 

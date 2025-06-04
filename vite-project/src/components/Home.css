@@ -1,0 +1,81 @@
+.home-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+  background-color: #f9f9fb;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+}
+
+.logo-home {
+  max-width: 120px;
+  margin-bottom: 1.5rem;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 2.2rem;
+  color: #34495e;
+  margin-bottom: 1.2rem;
+}
+
+.home-text {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  max-width: 700px;
+  margin: 0 auto 2rem auto;
+  color: #555;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.home-quote {
+  font-style: italic;
+  color: #7f8c8d;
+  font-size: 1rem;
+  margin: 1.5rem auto 2.5rem auto;
+  max-width: 600px;
+}
+
+.home-subtitle {
+  font-size: 1.4rem;
+  color: #2d3436;
+  margin-bottom: 1.2rem;
+  font-weight: bold;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.features-list li {
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  color: #2c3e50;
+  border-bottom: 1px solid #ececec;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.features-list li:last-child {
+  border-bottom: none;
+}
+
+.features-list li:hover {
+  background-color: #f0f8ff;
+  cursor: default;
+}

@@ -20,10 +20,6 @@ export default function AlumnList({
       )}
 
       <h2>Lista de Alumnos</h2>
-      <Link to="/agregar">
-        <button>Agregar Alumno</button>
-      </Link>
-
       {/* Si no hay alumnos, muestro mensaje” */}
       {alumnos.length === 0 ? (
         <p>No hay alumnos ingresados.</p>
@@ -62,6 +58,14 @@ export default function AlumnList({
           ))}
         </ul>
       )}
+        <div className='agregar-container'>
+          <Link to="/agregar">
+          <button>Agregar Alumno</button>
+        </Link>
+        </div>
+        
+
     </div>
+
   );
 }

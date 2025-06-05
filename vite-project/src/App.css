@@ -60,23 +60,33 @@ ul {
   min-width: 100px;
 }
 
+.agregar-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
 
 /*-- Media Query --*/
   
 @media (max-width: 600px) {
   .alumno-item {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
   }
 
   .alumno-actions {
-    margin-top: 0.75rem; 
+    display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    width: 100%;
+    margin-top: 0.95rem;
+    
   }
   .alumno-actions button {
-    width: 50%;
+    width: 160px;
+    font-size: 0.95rem;
+    text-align: center;
   }
     
   }
@@ -106,11 +116,11 @@ button:hover {
 
 /* Campos de entrada del formulario */
 .product-form input {
-  margin-bottom: 15px;
-  padding: 10px 14px;
+  margin-bottom: 1.2 rem;
+  padding: 12px 16px;
   border: 2px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 6px;
+  font-size: 1rem;
   transition: all 0.3s ease;
   background-color: #f5f5f5;
   color: #666;
@@ -152,11 +162,27 @@ input:-webkit-autofill:active {
 /* --Botones del formulario --*/
 .form-buttons {
   display: flex;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
 .form-buttons button {
   width: 48%;
+  flex: 1;
+  padding: 12px;
+  font-size: 1rem;
+  border: none;
+  background-color: #287dcc;
+  color: rgb(255, 255, 255);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+}
+
+.form-buttons button:hover {
+  background-color: #2044b8;
 }
 
 h1{
@@ -199,7 +225,6 @@ p{
 /* --Botones dentro del formulario --*/
 .product-form .form-buttons {
   display: flex;
-  gap: 1rem;
   margin-top: 1.5rem;
 }
 
@@ -207,15 +232,33 @@ p{
   flex: 1;
   padding: 12px;
   border: none;
-  background: #333;
+  background: #000000;
   color: white;
   border-radius: 4px;
   cursor: pointer;
+  
 }
 
 .product-form .form-buttons button:hover {
-  background: #555;
+  background: #0f61a3;
 }
+
+.form-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-wrapper h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #0366d6;
+}
+
 
 /*-- Mensaje de éxito en la lista --*/
 .success-message {
@@ -284,5 +327,22 @@ p{
   text-align: center;
   margin-bottom: 16px;
 }
+
+/*---Detalles del Alumno--*/
+.detail-container {
+  max-width: 300px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.detail-container p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
 
 /*--FIN CSS--*/

@@ -38,7 +38,6 @@ function FormularioWrapper({ agregarAlumno, actualizarAlumno, alumnos, setMensaj
 
   return (
     <div className="main-container">
-      <h2>{alumnoEditar ? "Editar Alumno" : "Agregar Alumno"}</h2>
       <AlumnForm
         onSubmit={handleSave}
         alumnoEditar={alumnoEditar}
